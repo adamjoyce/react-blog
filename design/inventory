@@ -1,0 +1,48 @@
+Content Inventory
+
+1. Site navigation
+  - Navigation bar / widget that allows the user to traverse the website Content
+  - Core pages:
+    - Home
+    - About
+  - Possible pages:
+    - Archive
+
+2. Logo (Possible)
+  - Represent brand for the blog
+  - Must make the site instantly recognisable
+
+3. Latest article
+  - The most recent article must be displayed for ease of access
+  - Include direct link to article
+
+4. Article list
+  - Section with all blog articles listed
+  - Entry content includes:
+    - Title
+    - Author
+    - Category
+    - Approx. read time?
+  - No images
+  - Last 'x' entries if Archive page is included
+  - Lazy load not necessary (no images + possible archive) but 'Load More' could
+    be included
+
+5. About section
+  - Describes me and / or the purpose of the blog i.e. what is contains and what
+    I plan to write about
+
+6. Archive list
+  - Section with all blog articles all blog articles
+  - 'x' entries per page, pagination for navigation
+
+7. Tag search
+  - Each article can have a number of tags
+  - Search feature than sorts archived blogs by predefined tags
+  - Design with future keyword feature search in mind
+
+8. Secondary navigation support
+  - One of the following for scrolled users:
+    - Full secondary navigation near base of page
+    - Widget to quickly return to primary top navigation
+    - Persistent navigation regardless of scroll

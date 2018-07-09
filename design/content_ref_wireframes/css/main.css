@@ -1,0 +1,67 @@
+html,
+body {
+  height : 100%;
+}
+
+.wrapper {
+  color: #fff;
+  display: grid;
+  font-family: helvetica;
+  font-size: 2rem;
+  grid-template-areas:
+    "logo nav"
+    "latest-article latest-article"
+    "article-list article-list"
+    "secondary-nav secondary-nav";
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 3rem 20rem 50rem 3rem;
+  grid-gap: 0.5rem;
+  padding: 1rem;
+}
+
+.content {
+  align-items: center;
+  background: turquoise;
+  border: 1px solid #33b2a5;
+  display: grid;
+  justify-items: center;
+}
+
+.one {
+  grid-area: nav;
+}
+
+.two {
+  grid-area: logo;
+}
+
+.three {
+  grid-area: latest-article;
+}
+
+.four {
+  grid-area: article-list;
+}
+
+.five {
+
+}
+
+.six {
+
+}
+
+.seven {
+
+}
+
+.eight {
+  grid-area: secondary-nav;
+}
+
+@media (min-width: 56.25em) {
+  .wrapper {
+    margin: 0 auto;
+    max-width: 56.25rem;
+  }
+}
