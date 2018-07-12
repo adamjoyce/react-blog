@@ -1,6 +1,11 @@
 export const themeMain = {
-  font: {
-    family: `-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, cursive,
-            Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif`
+  colors: {
+    primary: '#00a8ce',
+    secondary: '#008faf',
+    tertiary: '#fff'
+  },
+  fonts: {
+    primary: `'Domine', serif`,
+    secondary: `'Josefin Sans', sans-serif`
   }
 }

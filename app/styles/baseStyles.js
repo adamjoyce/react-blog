@@ -1,11 +1,17 @@
 import {injectGlobal} from 'styled-components';
 
-import {themeMain as theme} from './themes';
+const baseStyles = (theme) => injectGlobal`
+  html {
+    height: 100%;
+  }
 
-const baseStyles = () => injectGlobal`
   body {
-    background: palevioletred;
-    font-family: ${theme.font.family};
+    font-family: ${theme.fonts.primary};
+    height: 100%;
+  }
+
+  #app {
+    height: 100%;
   }
 `;
 
