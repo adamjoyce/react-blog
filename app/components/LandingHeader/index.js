@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 
 import {
   LandingWrapper,
-  ArtileTitle,
-  LandingOverlay
+  FeaturedArticle,
+  LandingOverlay,
+  ReadOnButton
 } from './style';
+
+import {formatDate} from '../../utils/helpers';
 
 /**
  * The full page header found on the blog landing page.
@@ -77,6 +80,7 @@ class LandingHeader extends React.Component {
   render() {
     const {featuredPost} = this.props;
     const {height, scrollHeight} = this.state;
+    console.log({featuredPost});
 
     // Set the overlay opacity based on the scroll height to produce the fade
     // effect when scrolling down the page.
@@ -86,15 +90,23 @@ class LandingHeader extends React.Component {
       overlayOpacity = Math.min(
         1 - (halfHeight - scrollHeight) / halfHeight, 1
       );
-      console.log({scrollHeight});
-      console.log({overlayOpacity});
-      console.log({height});
-      console.log('---------------------------');
+      // console.log({scrollHeight});
+      // console.log({overlayOpacity});
+      // console.log({height});
+      // console.log('---------------------------');
     }
 
     return (
       <LandingWrapper>
-        <ArtileTitle>{featuredPost.title}</ArtileTitle>
+        <FeaturedArticle>
+          <h1>{featuredPost.title}</h1>
+          <h3>
+            by {featuredPost.author.first_name} {featuredPost.author.last_name} / {/*
+            */}{Object.keys(featuredPost.categories)[0]} / {/*
+            */}{formatDate(featuredPost.date)}
+          </h3>
+          <ReadOnButton>Read On</ReadOnButton>
+        </FeaturedArticle>
         {height && scrollHeight
           ? <LandingOverlay style={{opacity: overlayOpacity}}></LandingOverlay>
           : <LandingOverlay></LandingOverlay>}
