@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
+    "start-external": "webpack-dev-server --host 0.0.0.0",
     "build": "NODE_ENV='production' webpack -p",
-    "createdocs": "jsdoc app -r -d docs"
+    "create-docs": "jsdoc app -r -d docs"
   },
   "babel": {
     "presets": [

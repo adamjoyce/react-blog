@@ -4,9 +4,9 @@ import {ThemeProvider} from 'styled-components';
 import {themeMain as theme} from '../../styles/themes';
 import baseStyles from '../../styles/baseStyles';
 import {getPosts} from '../../utils/api';
-import {ArticleList} from './style';
 
 import LandingHeader from '../LandingHeader';
+import ArticleList from '../ArticleList';
 
 /**
  * Wrapper class for the entire application.
@@ -44,7 +44,7 @@ class App extends React.Component {
         ? <ThemeProvider theme={theme}>
             <React.Fragment>
               <LandingHeader featuredPost={posts[0]}></LandingHeader>
-              <ArticleList></ArticleList>
+              <ArticleList posts={posts}></ArticleList>
             </React.Fragment>
           </ThemeProvider>
         : null

@@ -65,7 +65,7 @@ class LandingHeader extends React.Component {
    scrollListener() {
      const {scrollHeight, scrollIncrement} = this.state;
      const nextScrollIncrement = Math.ceil(
-       document.documentElement.scrollTop / scrollIncrement
+       window.scrollY / scrollIncrement
      ) * scrollIncrement;
 
      // Reduces the number of re-renders.
@@ -80,36 +80,31 @@ class LandingHeader extends React.Component {
   render() {
     const {featuredPost} = this.props;
     const {height, scrollHeight} = this.state;
+    const author = featuredPost.author;
+    const heightsInit = height && scrollHeight;
     console.log({featuredPost});
 
-    // Set the overlay opacity based on the scroll height to produce the fade
-    // effect when scrolling down the page.
-    let overlayOpacity;
+    // Set the featured article's opacity based on the scroll height to produce
+    // the fade effect when scrolling down the page.
+    let articleOpacity;
     const halfHeight = height * 0.5;
-    if (height && scrollHeight) {
-      overlayOpacity = Math.min(
-        1 - (halfHeight - scrollHeight) / halfHeight, 1
-      );
-      // console.log({scrollHeight});
-      // console.log({overlayOpacity});
-      // console.log({height});
-      // console.log('---------------------------');
+    if (heightsInit) {
+      articleOpacity = Math.max((halfHeight - scrollHeight) / halfHeight, 0);
     }
 
     return (
-      <LandingWrapper>
-        <FeaturedArticle>
-          <h1>{featuredPost.title}</h1>
-          <h3>
-            by {featuredPost.author.first_name} {featuredPost.author.last_name} / {/*
-            */}{Object.keys(featuredPost.categories)[0]} / {/*
-            */}{formatDate(featuredPost.date)}
-          </h3>
-          <ReadOnButton>Read On</ReadOnButton>
-        </FeaturedArticle>
-        {height && scrollHeight
-          ? <LandingOverlay style={{opacity: overlayOpacity}}></LandingOverlay>
-          : <LandingOverlay></LandingOverlay>}
+      <LandingWrapper 
+        style={height ? {height: height} : null}>
+          <FeaturedArticle
+            style={heightsInit ? {opacity: articleOpacity} : null}>
+            <h1>{featuredPost.title}</h1>
+            <h3>
+              by {author.first_name} {author.last_name} / {/*
+              */}{Object.keys(featuredPost.categories)[0]} / {/*
+              */}{formatDate(featuredPost.date)}
+            </h3>
+            <ReadOnButton>Read On</ReadOnButton>
+          </FeaturedArticle>
       </LandingWrapper>
     );
   }
