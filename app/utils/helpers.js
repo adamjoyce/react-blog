@@ -21,8 +21,8 @@ const months = {
  */
 export function formatDate(date) {
   const year = date.substring(0, 4);
-  const day = date.substring(5, 7);
-  let month = date.substring(8, 10);
+  const day = date.substring(8, 10);
+  let month = date.substring(5, 7);
 
   // Convert numercial month to month name.
   month = months[month];

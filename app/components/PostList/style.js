@@ -21,7 +21,7 @@ export const Divider = styled.hr`
   width: 10rem;
 `;
 
-export const Article = styled.div`
+export const Post = styled.div`
   background: ${props => props.theme.colors.primary};
   line-height: 1.5em;
   margin: 4rem 0;

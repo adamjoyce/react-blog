@@ -2,16 +2,15 @@ import styled from 'styled-components';
 
 export const LandingWrapper = styled.div`
   background-color: ${props => props.theme.colors.primary};
-  display: flex;
   font-family: 'Josefin Sans', sans-serif;
-  height: 100%;
+  height: 100vh;
   position: fixed;
 `;
 
-export const FeaturedArticle = styled.div`
+export const FeaturedPost = styled.div`
   color: ${props => props.theme.colors.tertiary};
   font-size: 5rem;
-  margin: auto 2rem;
+  margin: auto 5rem;
   position: relative;
   text-align: center;
   vertical-align: top;
@@ -19,17 +18,10 @@ export const FeaturedArticle = styled.div`
   h3 {
     font-family: ${props => props.theme.fonts.primary};
     font-size: 0.5em;
-    margin: 2rem 0;
+    margin: 4rem 0;
   }
 `;
 
-export const ReadOnButton = styled.a`
-  background: ${props => props.theme.colors.tertiary};
-  border: none;
-  box-shadow: 10px 10px 20px ${props => props.theme.colors.secondary};
-  color: ${props => props.theme.colors.primary};
-  display: inline-block;
-  font-size: 0.5em;
-  padding: 0.75rem 3rem;
-  text-transform: uppercase;
+export const Test = styled.div`
+  color: blue;
 `;

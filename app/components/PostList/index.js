@@ -5,13 +5,13 @@ import {
   ListWrapper,
   ListTitle,
   Divider,
-  Article
+  Post
 } from './style';
 
 /**
- * A list containing a number of blog Articles.
+ * A list containing a number of blog posts.
  */
-class ArticleList extends React.Component {
+class PostList extends React.Component {
   /**
    * Renders the component.
    */
@@ -26,10 +26,10 @@ class ArticleList extends React.Component {
         {posts.map((post, index) => (
           <React.Fragment
             key={post.title}>
-            <Article>
+            <Post>
               <h2># {post.title}</h2>
               {post.excerpt}
-            </Article>
+            </Post>
 
             {/* Don't render a divider below the last post. */}
             {index !== lastPost
@@ -42,8 +42,8 @@ class ArticleList extends React.Component {
   }
 }
 
-ArticleList.propTypes = {
+PostList.propTypes = {
   posts: PropTypes.array.isRequired
 }
 
-export default ArticleList;
+export default PostList;
