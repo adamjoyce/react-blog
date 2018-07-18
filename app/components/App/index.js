@@ -11,6 +11,7 @@ import {reduceLuminosity} from '../../utils/helpers';
 
 import LandingHeader from '../LandingHeader';
 import PostList from '../PostList';
+import ScrollTopWidget from '../ScrollTopWidget';
 import NavOverlay from '../NavOverlay';
 
 /**
@@ -24,9 +25,11 @@ class App extends React.Component {
      super(props);
      this.state = {
        posts: {},
+       scrolledHeight: '',
        overlayOpen: false
      }
      this.toggleOverlayOpen = this.toggleOverlayOpen.bind(this);
+     // this.scrollListener = this.scrollListener.bind(this);
    }
 
   /**
@@ -66,6 +69,7 @@ class App extends React.Component {
                   theme={theme}>
                 </LandingHeader>
                 <PostList posts={posts}></PostList>
+                <ScrollTopWidget></ScrollTopWidget>
               </PageWrapper>
               <NavOverlay
                 overlayOpen={overlayOpen}

@@ -15,7 +15,7 @@ export const NavList = styled.ul`
 `;
 
 export const NavItem = styled.li`
-  margin: 3rem;
+  margin: 1.5rem;
 
   a {
     color: ${props => props.theme.colors.tertiary};

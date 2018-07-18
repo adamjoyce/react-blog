@@ -7,7 +7,7 @@ export const AnchorButton = styled.a`
   color: ${props => props.textColor};
   display: inline-block;
   font-size: 0.5em;
-  padding: 2rem 4rem;
+  padding: 1rem 2rem;
   text-transform: uppercase;
 
   :active {

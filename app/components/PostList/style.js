@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const ListWrapper = styled.div`
   background: ${props => props.theme.colors.tertiary};
   display: block;
-  font-size: 3rem;
+  font-size: 1.2rem;
   overflow: hidden;
-  padding: 0 5rem;
+  padding: 0 2rem;
   position: relative;
   top: 100%;
 `;
@@ -14,17 +14,17 @@ export const ListTitle = styled.h1`
   display: block;
   font-family: ${props => props.theme.fonts.secondary};
   text-align: center;
-  margin: 7rem auto;
+  margin: 4rem auto;
   width: 100%;
 `;
 
 export const Divider = styled.hr`
-  width: 10rem;
+  width: 5rem;
 `;
 
 export const Post = styled.div`
   line-height: 1.75em;
-  margin: 7rem 0;
+  margin: 3rem 0;
 
   h2 {
     font-family: ${props => props.theme.fonts.secondary};
@@ -37,7 +37,7 @@ export const Post = styled.div`
     font-family: ${props => props.theme.fonts.primary};
     font-size: 0.833em;
     line-height: 1.5em;
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   a {
@@ -45,7 +45,7 @@ export const Post = styled.div`
     font-family: ${props => props.theme.fonts.secondary};
     font-size: 0.833em;
     line-height: 1em;
-    margin-top: 5rem;
+    margin-top: 1.5rem;
     text-align: center;
   }
 `;

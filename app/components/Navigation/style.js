@@ -2,7 +2,7 @@ import styled, {css} from 'styled-components';
 
 export const NavBar = styled.nav`
   color: ${props => props.theme.colors.tertiary};
-  font-size: 5rem;
+  font-size: 2rem;
   position: absolute;
   right: 0;
 `;

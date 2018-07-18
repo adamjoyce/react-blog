@@ -3,8 +3,8 @@ import {reduceAlpha} from '../../utils/helpers';
 
 export const Overlay = styled.div`
   background: ${props => reduceAlpha(props.theme.colors.primary, 0.7)};
-  font-size: 5rem;
-  height: 100%;
+  font-size: 2rem;
+  height: 100vh;
   left: 0;
   position: fixed;
   top: 0;

@@ -11,9 +11,7 @@ import NavMenu from '../NavMenu';
 const NavOverlay = (props) => (
   <Overlay overlayOpen={props.overlayOpen}>
     <CloseButton
-      onClick={() => props.toggleOverlayFunc()}>
-      X
-    </CloseButton>
+      onClick={() => props.toggleOverlayFunc()}>X</CloseButton>
     <NavMenu></NavMenu>
   </Overlay>
 );
