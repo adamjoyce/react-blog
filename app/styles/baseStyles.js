@@ -6,6 +6,7 @@ const baseStyles = (theme) => injectGlobal`
   }
 
   body {
+    background: #ddd;
     font-family: ${theme.fonts.primary};
     height: 100%;
   }

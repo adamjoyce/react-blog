@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
 import {LandingWrapper} from './style';
-// import {formatDate} from '../../utils/helpers';
 
+import Navigation from '../Navigation';
 import FeaturedPost from '../FeaturedPost';
-// import Button from '../Button';
 
 /**
  * The full page header found on the blog landing page.
@@ -14,96 +12,94 @@ import FeaturedPost from '../FeaturedPost';
  */
 class LandingHeader extends React.Component {
   /**
-   * LandingHeader constructor.
+   * Component constructor.
    */
    constructor(props) {
      super(props);
-     // this.state = {
-     //   height: '',
-     //   scrollHeight: '',
-     //   scrollIncrement: 20
-     // }
-     // this.updateWindowHeight = this.updateWindowHeight.bind(this);
-     // this.scrollListener = this.scrollListener.bind(this);
+     this.state = {
+       windowHeight: '',
+       scrolledHeight: '',
+       scrolledIncrement: 20
+     }
+     this.updateWindowHeight = this.updateWindowHeight.bind(this);
+     this.scrollListener = this.scrollListener.bind(this);
    }
 
-  /**
-   * Invoked immediately after the component is loaded.
-   */
-   // componentDidMount() {
-   //   // this.updateWindowHeight();
-   //   // console.log(this.myRef.current);
-   //   //
-   //   // Binds resize event in order to recalculate window height.
-   //   window.addEventListener('resize', this.updateWindowHeight);
-   //
-   //   // Bind scroll event listener for header fade.
-   //   window.addEventListener('scroll', this.scrollListener);
-   // }
-
    /**
-    * Called when the component is being removed from the DOM.
+    * Invoked immediately after the component is loaded.
     */
-   // componentWillUnmount() {
-   //   // Clean up event listeners.
-   //   window.removeEventListener ('resize', this.updateWindowHeight);
-   //   window.removeEventListener('scroll', this.scrollListener);
-   // }
+   componentDidMount() {
+     this.updateWindowHeight();
+
+     // Set up event listeners for scrolling fade and page resizing.
+     window.addEventListener('scroll', this.scrollListener);
+     window.addEventListener('resize', this.updateWindowHeight);
+   }
 
    /**
     * Calculates and sets the window height state.
     */
-    // updateWindowHeight() {
-    //   const height = window.innerHeight;
-    //   this.setState(() => ({height}));
-    // }
+   updateWindowHeight() {
+     const windowHeight = window.innerHeight;
+     this.setState(() => ({windowHeight}));
+   }
 
    /**
-    * Event listener for tracking the page scroll height to control fade.
+    * Event listener for tracking the page scroll height to control post
+    * fade-out.
     */
-   // scrollListener() {
-   //   const {scrollHeight, scrollIncrement} = this.state;
-   //   const nextScrollIncrement = Math.ceil(
-   //     window.scrollY / scrollIncrement
-   //   ) * scrollIncrement;
-   //
-   //   // Reduces the number of re-renders.
-   //   if (scrollHeight != nextScrollIncrement) {
-   //     this.setState(() => ({scrollHeight: nextScrollIncrement}));
-   //   }
-   // }
+   scrollListener() {
+     const {scrolledHeight, scrolledIncrement} = this.state;
+     const nextScrolledIncrement = Math.ceil(
+       window.scrollY / scrolledIncrement
+     ) * scrolledIncrement;
+
+     // Reduces the number of re-renders.
+     if (scrolledHeight != nextScrolledIncrement) {
+       this.setState(() => ({scrolledHeight: nextScrolledIncrement}));
+     }
+   }
 
   /**
    * Renders the component.
    */
   render() {
-    const {featuredPost} = this.props;
-    // const {height, scrollHeight} = this.state;
-    // const author = featuredPost.author;
-    // const heightsInit = height && scrollHeight;
-    // console.log({featuredPost});
-    //
-    // // Set the featured post's opacity based on the scroll height to produce
-    // // the fade effect when scrolling down the page.
-    // let postOpacity;
-    // const halfHeight = height * 0.5;
-    // if (heightsInit) {
-    //   postOpacity = Math.max((halfHeight - scrollHeight) / halfHeight, 0);
-    // }
+    const {featuredPost, toggleOverlayFunc, theme} = this.props;
+    const {windowHeight, scrolledHeight} = this.state;
+    const heightsSet = windowHeight && scrolledHeight;
 
-    // Calculate the height for the featured post - using js due to
-    // 100vh + iOS URL Bar + fixed div 'jumping' issue.
+    // Calculate the opacity of the featured post and navigation menu for the
+    // fade effect when the page is scrolled.
+    let opacity = 1;
+    if (heightsSet) {
+      const maxFadeHeight = windowHeight * 0.8;
+      opacity = Math.max((maxFadeHeight - scrolledHeight) / maxFadeHeight, 0);
+    }
 
     return (
       <LandingWrapper>
-        <FeaturedPost post={featuredPost}></FeaturedPost>
+        {windowHeight
+          ? <React.Fragment>
+              <Navigation
+                opacity={opacity}
+                toggleOverlayFunc={toggleOverlayFunc}>
+              </Navigation>
+              <FeaturedPost
+                post={featuredPost}
+                opacity={opacity}
+                windowHeight={windowHeight}
+                theme={theme}>
+              </FeaturedPost>
+            </React.Fragment>
+          : null}
       </LandingWrapper>
     );
   }
 }
 
 LandingHeader.propTypes = {
-  featuredPost: PropTypes.object.isRequired
+  featuredPost: PropTypes.object.isRequired,
+  toggleOverlayFunc: PropTypes.func.isRequired
 }
 
 export default LandingHeader;

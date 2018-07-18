@@ -7,6 +7,9 @@ import {
   Divider,
   Post
 } from './style';
+import {formatDate} from '../../utils/helpers';
+
+import Button from '../Button';
 
 /**
  * A list containing a number of blog posts.
@@ -21,22 +24,34 @@ class PostList extends React.Component {
 
     return (
       <ListWrapper>
-        <ListTitle>Latest Stories</ListTitle>
+        <ListTitle>{`Latest Stories`.toUpperCase()}</ListTitle>
         <Divider></Divider>
-        {posts.map((post, index) => (
-          <React.Fragment
-            key={post.title}>
-            <Post>
-              <h2># {post.title}</h2>
-              {post.excerpt}
-            </Post>
+        {posts.map((post, index) => {
+          // Skip the most recent store which will be the featured post.
+          if (index > 0) {
+            const author = post.author;
+            return (
+              <React.Fragment
+                key={post.title}>
+                <Post>
+                  <h2>{post.title.toUpperCase()}</h2>
+                  <h3>
+                    by {author.first_name} {author.last_name} / {/*
+                    */}{Object.keys(post.categories)[0]} / {/*
+                    */}{formatDate(post.date)}
+                  </h3>
+                  {post.excerpt}
+                  <Button text={"Read On"}></Button>
+                </Post>
 
-            {/* Don't render a divider below the last post. */}
-            {index !== lastPost
-              ? <Divider></Divider>
-              : null}
-          </React.Fragment>
-        ))}
+                {/* Don't render a divider below the last post. */}
+                {index !== lastPost
+                  ? <Divider></Divider>
+                  : null}
+              </React.Fragment>
+            );
+          }
+        })}
       </ListWrapper>
     );
   }

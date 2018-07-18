@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PostWrapper = styled.div`
   color: ${props => props.theme.colors.tertiary};
+  display: block;
   font-size: 5rem;
   margin: auto 6rem;
   position: relative;
