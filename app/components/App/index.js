@@ -98,9 +98,9 @@ class App extends React.Component {
    */
   render() {
     const {posts, windowHeight, scrolledHeight, overlayOpen} = this.state;
-    console.log(posts);
-    console.log({windowHeight});
-    console.log({scrolledHeight});
+    // console.log(posts);
+    // console.log({windowHeight});
+    // console.log({scrolledHeight});
 
     return (
       posts.length > 0

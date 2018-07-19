@@ -7,7 +7,7 @@ import {
   Divider,
   Post
 } from './style';
-import {formatDate} from '../../utils/helpers';
+import {formatDate, stripDangerousHTML} from '../../utils/helpers';
 
 import Button from '../Button';
 
@@ -40,7 +40,10 @@ class PostList extends React.Component {
                     */}{Object.keys(post.categories)[0]} / {/*
                     */}{formatDate(post.date)}
                   </h3>
-                  {post.excerpt}
+                  <div
+                    dangerouslySetInnerHTML=
+                      {{ __html: stripDangerousHTML(post.excerpt).innerHTML}}
+                  />
                   <Button text={"Read On"}></Button>
                 </Post>
 

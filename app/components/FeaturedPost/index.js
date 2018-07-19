@@ -45,7 +45,6 @@ class FeaturedPost extends React.Component {
   render() {
     const {post, windowHeight, opacity, theme} = this.props;
     const author = post.author;
-    console.log({post});
 
     return (
       <PostWrapper

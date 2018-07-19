@@ -3,7 +3,7 @@ import {reduceLuminosity} from '../../utils/helpers';
 
 export const AnchorButton = styled.a`
   background: ${props => props.bgColor};
-  border: none;
+  border: 1px solid ${props => props.bgColor};
   color: ${props => props.textColor};
   display: inline-block;
   font-size: 0.5em;

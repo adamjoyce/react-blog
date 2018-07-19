@@ -67,3 +67,22 @@ export function reduceLuminosity(hexColor, luminosityMultipler) {
      `rgba(${rgbaColor[0]}, ${rgbaColor[1]}, ${rgbaColor[2]}, ${rgbaColor[3]})`;
    return result;
  }
+
+/**
+ * Strips out all script tags from some given text.
+ * @param {string} Text from which HTML should be stripped.
+ * @return {string} The stripped text wrapped in a div.
+ */
+export function stripDangerousHTML(text) {
+  // Create an element for querying.
+  let div = document.createElement('div');
+  div.innerHTML = text;
+
+  // Strip all the tags.
+  let tags = div.querySelectorAll('scripts');
+  for (let i = 0; i < tags.length; ++i) {
+    tags[i].parentNode.removeChild(tags[i]);
+  }
+
+  return div;
+}
