@@ -19,17 +19,20 @@ import NavOverlay from '../NavOverlay';
  */
 class App extends React.Component {
   /**
-   * App conostructor.
+   * App constructor.
    */
    constructor(props) {
      super(props);
      this.state = {
        posts: {},
-       scrolledHeight: '',
+       windowHeight: 0,
+       scrolledHeight: 0,
+       scrolledIncrement: 20,
        overlayOpen: false
      }
      this.toggleOverlayOpen = this.toggleOverlayOpen.bind(this);
-     // this.scrollListener = this.scrollListener.bind(this);
+     this.updateWindowHeight = this.updateWindowHeight.bind(this);
+     this.scrollListener = this.scrollListener.bind(this);
    }
 
   /**
@@ -41,6 +44,45 @@ class App extends React.Component {
     // Grab the posts from our wordpress site.
     const posts = await getPosts();
     this.setState(() => posts);
+
+    this.updateWindowHeight();
+
+    // Set up event listener for calculating the current scroll height.
+    window.addEventListener('resize', this.updateWindowHeight);
+    window.addEventListener('scroll', this.scrollListener);
+  }
+
+  /**
+   * Invoked immediately before component is unmounted.
+   */
+  componentWillUnmount() {
+    // Clean up the active event listeners.
+    window.removeEventListener('resize', this.updateWindowHeight);
+    window.removeEventListener('scroll', this.scrollListener);
+  }
+
+  /**
+   * Calculates and sets the window height state.
+   */
+  updateWindowHeight() {
+    const windowHeight = window.innerHeight;
+    this.setState(() => ({windowHeight}));
+  }
+
+  /**
+   * Event listener for tracking the page scroll height to control post
+   * fade-out.
+   */
+  scrollListener() {
+    const {scrolledHeight, scrolledIncrement} = this.state;
+    const nextScrolledIncrement = Math.ceil(
+      window.scrollY / scrolledIncrement
+    ) * scrolledIncrement;
+
+    // Reduces the number of re-renders.
+    if (scrolledHeight != nextScrolledIncrement) {
+      this.setState(() => ({scrolledHeight: nextScrolledIncrement}));
+    }
   }
 
   /**
@@ -55,8 +97,10 @@ class App extends React.Component {
    * Renders the component.
    */
   render() {
-    const {posts, overlayOpen} = this.state;
+    const {posts, windowHeight, scrolledHeight, overlayOpen} = this.state;
     console.log(posts);
+    console.log({windowHeight});
+    console.log({scrolledHeight});
 
     return (
       posts.length > 0
@@ -66,10 +110,15 @@ class App extends React.Component {
                 <LandingHeader
                   featuredPost={posts[0]}
                   toggleOverlayFunc={this.toggleOverlayOpen}
+                  windowHeight={windowHeight}
+                  scrolledHeight={scrolledHeight}
                   theme={theme}>
                 </LandingHeader>
                 <PostList posts={posts}></PostList>
-                <ScrollTopWidget></ScrollTopWidget>
+                <ScrollTopWidget
+                  windowHeight={windowHeight}
+                  scrolledHeight={scrolledHeight}>
+                </ScrollTopWidget>
               </PageWrapper>
               <NavOverlay
                 overlayOpen={overlayOpen}
