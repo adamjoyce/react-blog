@@ -13,9 +13,25 @@ class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      height: 0,
       navClicked: false
     }
+    this.navRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  /**
+   * Invoked immediately after the component is loaded.
+   */
+  componentDidMount() {
+    const {headerHeightFunc} = this.props;
+    if (headerHeightFunc) {
+      // The component is a non-landing page so calculate starting height for
+      // preceeding section.
+      const height = this.navRef.current.clientHeight;
+      headerHeightFunc(height);
+      this.setState(() => ({height}));
+    }
   }
 
   /**
@@ -28,12 +44,13 @@ class Navigation extends React.Component {
 
   render() {
     const {opacity} = this.props;
-    const {navClicked} = this.state;
+    const {height, navClicked} = this.state;
 
     return (
       <React.Fragment>
         <NavBar style={{opacity: opacity}}>
           <NavButton
+            innerRef={this.navRef}
             onClick={() => this.handleClick()}>
             <i className="fas fa-bars"></i>
           </NavButton>
@@ -45,7 +62,8 @@ class Navigation extends React.Component {
 
 Navigation.propTypes = {
   opacity: PropTypes.number.isRequired,
-  toggleOverlayFunc: PropTypes.func.isRequired
+  toggleOverlayFunc: PropTypes.func.isRequired,
+  headerHeightFunc: PropTypes.func
 }
 
 export default Navigation;

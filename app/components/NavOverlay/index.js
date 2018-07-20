@@ -12,7 +12,7 @@ const NavOverlay = (props) => (
   <Overlay overlayOpen={props.overlayOpen}>
     <CloseButton
       onClick={() => props.toggleOverlayFunc()}>X</CloseButton>
-    <NavMenu></NavMenu>
+    <NavMenu toggleOverlayFunc={props.toggleOverlayFunc} />
   </Overlay>
 );
 

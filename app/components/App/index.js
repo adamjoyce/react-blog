@@ -1,16 +1,17 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import {PageWrapper} from './style';
-// import {NavOverlay} from '../Navigation/style';
 
+import urls from '../../nav/urls';
 import {themeMain as theme} from '../../styles/themes';
 import baseStyles from '../../styles/baseStyles';
 import {getPosts} from '../../utils/api';
 import {reduceLuminosity} from '../../utils/helpers';
 
-import LandingHeader from '../LandingHeader';
-import PostList from '../PostList';
+import Landing from '../Landing';
+import About from '../About';
 import ScrollTopWidget from '../ScrollTopWidget';
 import NavOverlay from '../NavOverlay';
 
@@ -28,11 +29,13 @@ class App extends React.Component {
        windowHeight: 0,
        scrolledHeight: 0,
        scrolledIncrement: 20,
+       headerHeight: 0,
        overlayOpen: false
      }
      this.toggleOverlayOpen = this.toggleOverlayOpen.bind(this);
      this.updateWindowHeight = this.updateWindowHeight.bind(this);
      this.scrollListener = this.scrollListener.bind(this);
+     this.setHeaderHeight = this.setHeaderHeight.bind(this);
    }
 
   /**
@@ -94,38 +97,60 @@ class App extends React.Component {
   }
 
   /**
+   * Sets the non-landing header height in pixels to allow for correct
+   * placement of the preceeding post / section.
+   */
+  setHeaderHeight(headerHeight) {
+    this.setState(() => ({headerHeight}));
+  }
+
+  /**
    * Renders the component.
    */
   render() {
-    const {posts, windowHeight, scrolledHeight, overlayOpen} = this.state;
+    const {posts,
+           windowHeight,
+           scrolledHeight,
+           headerHeight,
+           overlayOpen} = this.state;
     // console.log(posts);
     // console.log({windowHeight});
     // console.log({scrolledHeight});
 
     return (
       posts.length > 0
-        ? <ThemeProvider theme={theme}>
-            <React.Fragment>
-              <PageWrapper overlayOpen={overlayOpen}>
-                <LandingHeader
-                  featuredPost={posts[0]}
-                  toggleOverlayFunc={this.toggleOverlayOpen}
-                  windowHeight={windowHeight}
-                  scrolledHeight={scrolledHeight}
-                  theme={theme}>
-                </LandingHeader>
-                <PostList posts={posts}></PostList>
-                <ScrollTopWidget
-                  windowHeight={windowHeight}
-                  scrolledHeight={scrolledHeight}>
-                </ScrollTopWidget>
-              </PageWrapper>
-              <NavOverlay
-                overlayOpen={overlayOpen}
-                toggleOverlayFunc={this.toggleOverlayOpen}>
-              </NavOverlay>
-            </React.Fragment>
-          </ThemeProvider>
+        ? <Router>
+            <ThemeProvider theme={theme}>
+              <React.Fragment>
+                <PageWrapper overlayOpen={overlayOpen}>
+                  <Route exact path={urls.home} render={() =>
+                    <Landing
+                      posts={posts}
+                      toggleOverlayFunc={this.toggleOverlayOpen}
+                      windowHeight={windowHeight}
+                      scrolledHeight={scrolledHeight}
+                      theme={theme}
+                    />
+                  } />
+                  <Route exact path={urls.about} render={() =>
+                    <About
+                      toggleOverlayFunc={this.toggleOverlayOpen}
+                      headerHeightFunc={this.setHeaderHeight}
+                      headerHeight={headerHeight}
+                    />
+                  }/>
+                  <ScrollTopWidget
+                    windowHeight={windowHeight}
+                    scrolledHeight={scrolledHeight}>
+                  </ScrollTopWidget>
+                </PageWrapper>
+                <NavOverlay
+                  overlayOpen={overlayOpen}
+                  toggleOverlayFunc={this.toggleOverlayOpen}>
+                </NavOverlay>
+              </React.Fragment>
+            </ThemeProvider>
+          </Router>
         : null
     );
   }

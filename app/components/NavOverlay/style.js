@@ -27,8 +27,8 @@ export const CloseButton = styled.button`
   background: none;
   border: none;
   color: ${props => props.theme.colors.tertiary};
-  font-size: 1.25em;
-  padding: 0.75em;
+  font-size: 0.825em;
+  padding: 0.825em;
   position: absolute;
   right: 0;
 `;

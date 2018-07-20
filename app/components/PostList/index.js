@@ -25,7 +25,7 @@ class PostList extends React.Component {
     return (
       <ListWrapper>
         <ListTitle>{`Latest Stories`.toUpperCase()}</ListTitle>
-        <Divider></Divider>
+        <Divider />
         {posts.map((post, index) => {
           // Skip the most recent store which will be the featured post.
           if (index > 0) {
@@ -49,7 +49,7 @@ class PostList extends React.Component {
 
                 {/* Don't render a divider below the last post. */}
                 {index !== lastPost
-                  ? <Divider></Divider>
+                  ? <Divider />
                   : null}
               </React.Fragment>
             );

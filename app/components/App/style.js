@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components';
 
 export const PageWrapper = styled.div`
+  background: ${props => props.theme.colors.tertiary};
   height: 100%;
   transition: 0.5s;
 
