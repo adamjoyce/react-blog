@@ -17,6 +17,7 @@ class LandingHeader extends React.Component {
   render() {
     const {featuredPost,
            toggleOverlayFunc,
+           activePostFunc,
            windowHeight,
            scrolledHeight,
            theme} = this.props;
@@ -42,6 +43,7 @@ class LandingHeader extends React.Component {
                 post={featuredPost}
                 opacity={opacity}
                 windowHeight={windowHeight}
+                activePostFunc={activePostFunc}
                 theme={theme}>
               </FeaturedPost>
             </React.Fragment>
@@ -53,6 +55,7 @@ class LandingHeader extends React.Component {
 
 LandingHeader.propTypes = {
   featuredPost: PropTypes.object.isRequired,
+  activePostFunc: PropTypes.func.isRequired,
   toggleOverlayFunc: PropTypes.func.isRequired,
   scrolledHeight: PropTypes.number.isRequired
 }

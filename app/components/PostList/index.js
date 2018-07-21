@@ -9,7 +9,7 @@ import {
 } from './style';
 import {formatDate, stripDangerousHTML} from '../../utils/helpers';
 
-import Button from '../Button';
+import ReadOnButton from '../ReadOnButton';
 
 /**
  * A list containing a number of blog posts.
@@ -19,7 +19,7 @@ class PostList extends React.Component {
    * Renders the component.
    */
   render() {
-    const {posts} = this.props;
+    const {posts, activePostFunc} = this.props;
     const lastPost = posts.length - 1;
 
     return (
@@ -44,7 +44,11 @@ class PostList extends React.Component {
                     dangerouslySetInnerHTML=
                       {{ __html: stripDangerousHTML(post.excerpt).innerHTML}}
                   />
-                  <Button text={"Read On"}></Button>
+                  <ReadOnButton
+                    text={"Read On"}
+                    post={post}
+                    activePostFunc={activePostFunc}
+                  />
                 </Post>
 
                 {/* Don't render a divider below the last post. */}
@@ -61,7 +65,8 @@ class PostList extends React.Component {
 }
 
 PostList.propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  activePostFunc: PropTypes.func.isRequired
 }
 
 export default PostList;

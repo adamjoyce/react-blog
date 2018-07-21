@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const ContentWrapper = styled.div`
   background: ${props => props.theme.colors.tertiary};
   position: relative;
-  height: 200%;
 `;

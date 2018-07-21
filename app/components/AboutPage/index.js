@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Wrapper} from './style';
+import {ContentWrapper} from './style';
 
 import Header from '../Header';
 
 /**
  * The about page describing a little about the blog / me.
  */
- class About extends React.Component {
+ class AboutPage extends React.Component {
    render() {
      const {toggleOverlayFunc, headerHeightFunc, headerHeight} = this.props;
      return (
@@ -18,20 +18,20 @@ import Header from '../Header';
            headerHeightFunc={headerHeightFunc}
          />
          {headerHeight > 0
-           ? <Wrapper
+           ? <ContentWrapper
                style={{top: headerHeight}}>
                This is the About page!
-             </Wrapper>
+             </ContentWrapper>
            : null}
        </React.Fragment>
      );
    }
  }
 
-About.propTypes = {
+AboutPage.propTypes = {
   toggleOverlayFunc: PropTypes.func.isRequired,
   headerHeightFunc: PropTypes.func.isRequired,
   headerHeight: PropTypes.number.isRequired
 }
 
-export default About;
+export default AboutPage;

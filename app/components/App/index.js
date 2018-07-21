@@ -10,8 +10,9 @@ import baseStyles from '../../styles/baseStyles';
 import {getPosts} from '../../utils/api';
 import {reduceLuminosity} from '../../utils/helpers';
 
-import Landing from '../Landing';
-import About from '../About';
+import LandingPage from '../LandingPage';
+import AboutPage from '../AboutPage';
+import PostPage from '../PostPage';
 import ScrollTopWidget from '../ScrollTopWidget';
 import NavOverlay from '../NavOverlay';
 
@@ -26,6 +27,7 @@ class App extends React.Component {
      super(props);
      this.state = {
        posts: {},
+       activePost: {},
        windowHeight: 0,
        scrolledHeight: 0,
        scrolledIncrement: 20,
@@ -36,6 +38,7 @@ class App extends React.Component {
      this.updateWindowHeight = this.updateWindowHeight.bind(this);
      this.scrollListener = this.scrollListener.bind(this);
      this.setHeaderHeight = this.setHeaderHeight.bind(this);
+     this.setActivePost = this.setActivePost.bind(this);
    }
 
   /**
@@ -105,14 +108,23 @@ class App extends React.Component {
   }
 
   /**
+   * Sets the active post signalling that the user wants to read that post.
+   */
+  setActivePost(activePost) {
+    this.setState(() => ({activePost}));
+  }
+
+  /**
    * Renders the component.
    */
   render() {
     const {posts,
+           activePost,
            windowHeight,
            scrolledHeight,
            headerHeight,
            overlayOpen} = this.state;
+    console.log({activePost});
     // console.log(posts);
     // console.log({windowHeight});
     // console.log({scrolledHeight});
@@ -124,8 +136,9 @@ class App extends React.Component {
               <React.Fragment>
                 <PageWrapper overlayOpen={overlayOpen}>
                   <Route exact path={urls.home} render={() =>
-                    <Landing
+                    <LandingPage
                       posts={posts}
+                      activePostFunc={this.setActivePost}
                       toggleOverlayFunc={this.toggleOverlayOpen}
                       windowHeight={windowHeight}
                       scrolledHeight={scrolledHeight}
@@ -133,12 +146,20 @@ class App extends React.Component {
                     />
                   } />
                   <Route exact path={urls.about} render={() =>
-                    <About
+                    <AboutPage
                       toggleOverlayFunc={this.toggleOverlayOpen}
                       headerHeightFunc={this.setHeaderHeight}
                       headerHeight={headerHeight}
                     />
-                  }/>
+                  } />
+                  <Route path={urls.post} render={() =>
+                    <PostPage
+                      post={activePost}
+                      toggleOverlayFunc={this.toggleOverlayOpen}
+                      headerHeightFunc={this.setHeaderHeight}
+                      headerHeight={headerHeight}
+                    />
+                  } />
                   <ScrollTopWidget
                     windowHeight={windowHeight}
                     scrolledHeight={scrolledHeight}>

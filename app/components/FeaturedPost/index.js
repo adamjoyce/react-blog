@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {PostWrapper} from './style';
 import {formatDate} from '../../utils/helpers';
 
-import Button from '../Button';
+import ReadOnButton from '../ReadOnButton';
 
 class FeaturedPost extends React.Component {
   /**
@@ -43,7 +43,7 @@ class FeaturedPost extends React.Component {
    * Renders the component.
    */
   render() {
-    const {post, windowHeight, opacity, theme} = this.props;
+    const {post, windowHeight, opacity, activePostFunc, theme} = this.props;
     const author = post.author;
 
     return (
@@ -56,11 +56,13 @@ class FeaturedPost extends React.Component {
           */}{Object.keys(post.categories)[0]} / {/*
           */}{formatDate(post.date)}
         </h3>
-        <Button
+        <ReadOnButton
           textColor={theme.colors.primary}
           bgColor={theme.colors.tertiary}
-          text={"Read On"}>
-        </Button>
+          text={"Read On"}
+          post={post}
+          activePostFunc={activePostFunc}
+        />
       </PostWrapper>
     );
   }
@@ -69,7 +71,8 @@ class FeaturedPost extends React.Component {
 FeaturedPost.propTypes = {
   post: PropTypes.object.isRequired,
   windowHeight: PropTypes.number.isRequired,
-  opacity: PropTypes.number.isRequired
+  opacity: PropTypes.number.isRequired,
+  activePostFunc: PropTypes.func.isRequired
 }
 
 export default FeaturedPost;

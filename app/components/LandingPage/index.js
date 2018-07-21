@@ -8,8 +8,9 @@ import PostList from '../PostList';
  * The landing page component.
  * Consists of the landing header and post list.
  */
-const Landing = (props) => {
+const LandingPage = (props) => {
   const {posts,
+         activePostFunc,
          toggleOverlayFunc,
          windowHeight,
          scrolledHeight,
@@ -19,22 +20,24 @@ const Landing = (props) => {
     <React.Fragment>
       <LandingHeader
         featuredPost={posts[0]}
+        activePostFunc={activePostFunc}
         toggleOverlayFunc={toggleOverlayFunc}
         windowHeight={windowHeight}
         scrolledHeight={scrolledHeight}
         theme={theme}>
       </LandingHeader>
-      <PostList posts={posts} />
+      <PostList posts={posts} activePostFunc={activePostFunc} />
     </React.Fragment>
   );
 };
 
-Landing.propTypes = {
+LandingPage.propTypes = {
   posts: PropTypes.array.isRequired,
+  activePostFunc: PropTypes.func.isRequired,
   toggleOverlayFunc: PropTypes.func.isRequired,
   windowHeight: PropTypes.number.isRequired,
   scrolledHeight: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired
 }
 
-export default Landing;
+export default LandingPage;
