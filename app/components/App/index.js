@@ -1,8 +1,8 @@
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import {PageWrapper} from './style';
+// import {PageWrapper} from './style';
 
 import urls from '../../nav/urls';
 import {themeMain as theme} from '../../styles/themes';
@@ -10,6 +10,7 @@ import baseStyles from '../../styles/baseStyles';
 import {getPosts} from '../../utils/api';
 import {reduceLuminosity} from '../../utils/helpers';
 
+import PageWrapper from '../PageWrapper';
 import LandingPage from '../LandingPage';
 import AboutPage from '../AboutPage';
 import PostPage from '../PostPage';
@@ -32,13 +33,15 @@ class App extends React.Component {
        scrolledHeight: 0,
        scrolledIncrement: 20,
        headerHeight: 0,
-       overlayOpen: false
+       overlayOpen: false,
+       pageChanged: false
      }
      this.toggleOverlayOpen = this.toggleOverlayOpen.bind(this);
      this.updateWindowHeight = this.updateWindowHeight.bind(this);
      this.scrollListener = this.scrollListener.bind(this);
      this.setHeaderHeight = this.setHeaderHeight.bind(this);
      this.setActivePost = this.setActivePost.bind(this);
+     this.setPageChanged = this.setPageChanged.bind(this);
    }
 
   /**
@@ -102,6 +105,7 @@ class App extends React.Component {
   /**
    * Sets the non-landing header height in pixels to allow for correct
    * placement of the preceeding post / section.
+   * @param {number} The height of the header in pixels.
    */
   setHeaderHeight(headerHeight) {
     this.setState(() => ({headerHeight}));
@@ -109,10 +113,19 @@ class App extends React.Component {
 
   /**
    * Sets the active post signalling that the user wants to read that post.
+   * @param {object} The new post to be set as active.
    */
   setActivePost(activePost) {
     this.setState(() => ({activePost}));
   }
+
+  /**
+   * Sets the state value indicating if a page change has just occured.
+   * @param {bool} The boolean value to be set at the pageChanged state.
+   */
+   setPageChanged(pageChanged) {
+     this.setState(() => ({pageChanged}));
+   }
 
   /**
    * Renders the component.
@@ -123,47 +136,61 @@ class App extends React.Component {
            windowHeight,
            scrolledHeight,
            headerHeight,
-           overlayOpen} = this.state;
-    console.log({activePost});
+           overlayOpen,
+           pageChanged} = this.state;
+    // console.log({activePost});
     // console.log(posts);
     // console.log({windowHeight});
-    // console.log({scrolledHeight});
+    console.log({scrolledHeight});
 
     return (
       posts.length > 0
         ? <Router>
             <ThemeProvider theme={theme}>
               <React.Fragment>
-                <PageWrapper overlayOpen={overlayOpen}>
-                  <Route exact path={urls.home} render={() =>
-                    <LandingPage
-                      posts={posts}
-                      activePostFunc={this.setActivePost}
-                      toggleOverlayFunc={this.toggleOverlayOpen}
-                      windowHeight={windowHeight}
-                      scrolledHeight={scrolledHeight}
-                      theme={theme}
+                <PageWrapper
+                  overlayOpen={overlayOpen}
+                  pageChangedFunc={this.setPageChanged}>
+                  <Switch>
+                    {/* Landing Page */}
+                    <Route exact path={urls.home} render={() =>
+                      <LandingPage
+                        posts={posts}
+                        activePostFunc={this.setActivePost}
+                        toggleOverlayFunc={this.toggleOverlayOpen}
+                        windowHeight={windowHeight}
+                        scrolledHeight={scrolledHeight}
+                        theme={theme}
+                      />
+                    } />
+                    {/* About Page */}
+                    <Route exact path={urls.about} render={() =>
+                      <AboutPage
+                        toggleOverlayFunc={this.toggleOverlayOpen}
+                        headerHeightFunc={this.setHeaderHeight}
+                        headerHeight={headerHeight}
+                      />
+                    } />
+                    {/* A Post Page */}
+                    <Route path={urls.post} render={() =>
+                      <PostPage
+                        post={activePost}
+                        toggleOverlayFunc={this.toggleOverlayOpen}
+                        headerHeightFunc={this.setHeaderHeight}
+                        headerHeight={headerHeight}
+                      />
+                    } />
+                    <Route
+                      render={() => <div>That page does not exist!</div>}
                     />
-                  } />
-                  <Route exact path={urls.about} render={() =>
-                    <AboutPage
-                      toggleOverlayFunc={this.toggleOverlayOpen}
-                      headerHeightFunc={this.setHeaderHeight}
-                      headerHeight={headerHeight}
-                    />
-                  } />
-                  <Route path={urls.post} render={() =>
-                    <PostPage
-                      post={activePost}
-                      toggleOverlayFunc={this.toggleOverlayOpen}
-                      headerHeightFunc={this.setHeaderHeight}
-                      headerHeight={headerHeight}
-                    />
-                  } />
+                  </Switch>
                   <ScrollTopWidget
+                    activePost={activePost}
                     windowHeight={windowHeight}
-                    scrolledHeight={scrolledHeight}>
-                  </ScrollTopWidget>
+                    scrolledHeight={scrolledHeight}
+                    pageChanged={pageChanged}
+                    pageChangedFunc={this.setPageChanged}
+                  />
                 </PageWrapper>
                 <NavOverlay
                   overlayOpen={overlayOpen}

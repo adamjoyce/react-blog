@@ -35,6 +35,19 @@ class ScrollTopWidget extends React.Component {
   }
 
   /**
+   * Invoked immediately after the component updates.
+   */
+  componentDidUpdate(prevProps) {
+    const {pageChanged, pageChangedFunc} = this.props;
+    if (pageChanged && pageChanged !== prevProps.pageChanged) {
+      // The page has just changed so jump to top of page - scrolling is jerky.
+      window.scrollTo(0, 0);
+      pageChangedFunc(false);
+      console.log('PageChanged - Scrolling');
+    }
+  }
+
+  /**
    * Event listener to toggle visibility of widget once scrolled past a certain
    * point.
    */
@@ -88,7 +101,9 @@ class ScrollTopWidget extends React.Component {
 
 ScrollTopWidget.propTypes = {
   windowHeight: PropTypes.number.isRequired,
-  scrolledHeight: PropTypes.number.isRequired
+  scrolledHeight: PropTypes.number.isRequired,
+  pageChanged: PropTypes.bool.isRequired,
+  pageChangedFunc: PropTypes.func.isRequired
 }
 
 export default ScrollTopWidget;
