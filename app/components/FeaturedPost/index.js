@@ -13,6 +13,7 @@ class FeaturedPost extends React.Component {
    constructor(props) {
      super(props);
      this.postRef = React.createRef();
+     this.centerPost = this.centerPost.bind(this);
    }
 
    /**
@@ -24,9 +25,7 @@ class FeaturedPost extends React.Component {
      // Set the initial position of featured post to avoid 'jumping' issues
      // in mobile browsers when combining position: fixed + vh + URL bar
      // shrinking.
-     const postPosition =
-       (windowHeight * 0.5) - (this.postRef.current.clientHeight * 0.5);
-     this.postRef.current.style.top = `${postPosition}px`;
+     this.centerPost(this.postRef.current, windowHeight);
    }
 
   /**
@@ -37,6 +36,11 @@ class FeaturedPost extends React.Component {
      const windowHeight = window.innerHeight;
      this.setState(() => ({windowHeight}));
      return windowHeight;
+   }
+
+   centerPost(postDOMNode, windowHeight) {
+     const postPosition = (windowHeight * 0.5) - (postDOMNode.clientHeight * 0.5);
+     postDOMNode.style.top = `${postPosition}px`;
    }
 
   /**

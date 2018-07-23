@@ -141,7 +141,8 @@ class App extends React.Component {
     // console.log({activePost});
     // console.log(posts);
     // console.log({windowHeight});
-    console.log({scrolledHeight});
+    // console.log({scrolledHeight});
+    console.log({pageChanged});
 
     return (
       posts.length > 0

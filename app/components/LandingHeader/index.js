@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {LandingWrapper} from './style';
 
+import Header from '../Header';
 import Navigation from '../Navigation';
 import FeaturedPost from '../FeaturedPost';
 
@@ -35,10 +36,7 @@ class LandingHeader extends React.Component {
       <LandingWrapper>
         {windowHeight
           ? <React.Fragment>
-              <Navigation
-                opacity={opacity}
-                toggleOverlayFunc={toggleOverlayFunc}>
-              </Navigation>
+              <Header opacity={opacity} toggleOverlayFunc={toggleOverlayFunc} />
               <FeaturedPost
                 post={featuredPost}
                 opacity={opacity}

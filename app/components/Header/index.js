@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {HeaderWrapper} from './style';
+import {HeaderWrapper, Title} from './style';
+import urls from '../../nav/urls';
 
 import Navigation from '../Navigation';
 
@@ -10,13 +11,18 @@ import Navigation from '../Navigation';
  */
  class Header extends React.Component {
    render() {
-     const {toggleOverlayFunc, headerHeightFunc} = this.props;
+     const {toggleOverlayFunc, headerHeightFunc, opacity} = this.props;
      return (
        <HeaderWrapper>
+         <Title
+           to={urls.home}
+           style={{opacity: opacity}}>
+           A Torpid Pumpkin
+         </Title>
          <Navigation
-           opacity={1}
            toggleOverlayFunc={toggleOverlayFunc}
            headerHeightFunc={headerHeightFunc}
+           opacity={opacity}
          />
        </HeaderWrapper>
      );
@@ -25,7 +31,12 @@ import Navigation from '../Navigation';
 
 Header.propTypes = {
   toggleOverlayFunc: PropTypes.func.isRequired,
-  headerHeightFunc: PropTypes.func.isRequired
+  headerHeightFunc: PropTypes.func,
+  opacity: PropTypes.number
+}
+
+Header.defaultProps = {
+  opacity: 1
 }
 
 export default Header;

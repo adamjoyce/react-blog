@@ -47,15 +47,13 @@ class Navigation extends React.Component {
     const {height, navClicked} = this.state;
 
     return (
-      <React.Fragment>
-        <NavBar style={{opacity: opacity}}>
-          <NavButton
-            innerRef={this.navRef}
-            onClick={() => this.handleClick()}>
-            <i className="fas fa-bars"></i>
-          </NavButton>
-        </NavBar>
-      </React.Fragment>
+      <NavBar style={{opacity: opacity}}>
+        <NavButton
+          innerRef={this.navRef}
+          onClick={() => this.handleClick()}>
+          <i className="fas fa-bars"></i>
+        </NavButton>
+      </NavBar>
     );
   }
 }

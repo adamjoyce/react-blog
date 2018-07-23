@@ -23,6 +23,9 @@ class ScrollTopWidget extends React.Component {
    * Invoked immediately after the component loads.
    */
   componentDidMount() {
+    // Called once on mount to hide any 'left-over' widgets from the previous
+    // routes.
+    this.visibilityThreshold();
     window.addEventListener('scroll', this.visibilityThreshold);
   }
 
@@ -38,12 +41,21 @@ class ScrollTopWidget extends React.Component {
    * Invoked immediately after the component updates.
    */
   componentDidUpdate(prevProps) {
-    const {pageChanged, pageChangedFunc} = this.props;
+    const {pageChanged,
+           pageChangedFunc,
+           scrolledHeight} = this.props;
+    const {visible} = this.state;
+
+    // Page change.
     if (pageChanged && pageChanged !== prevProps.pageChanged) {
-      // The page has just changed so jump to top of page - scrolling is jerky.
+      // The page has just changed so jump to top of page.
       window.scrollTo(0, 0);
       pageChangedFunc(false);
-      console.log('PageChanged - Scrolling');
+    }
+
+    // Fades out the widget have a route change.
+    if (scrolledHeight === 0 && visible) {
+      this.setState(() => ({visible: false}));
     }
   }
 
@@ -86,6 +98,9 @@ class ScrollTopWidget extends React.Component {
     const {windowHeight, scrolledHeight} = this.props;
     const {visible} = this.state;
     const heightsSet = (windowHeight > 0) && (scrolledHeight > 0);
+    console.log({windowHeight});
+    console.log({scrolledHeight});
+    console.log({visible});
 
     return (
       <ScrollButton
