@@ -2,8 +2,6 @@ import React from 'react';
 import {ThemeProvider} from 'styled-components';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-// import {PageWrapper} from './style';
-
 import urls from '../../nav/urls';
 import {themeMain as theme} from '../../styles/themes';
 import baseStyles from '../../styles/baseStyles';
@@ -41,6 +39,7 @@ class App extends React.Component {
      this.scrollListener = this.scrollListener.bind(this);
      this.setHeaderHeight = this.setHeaderHeight.bind(this);
      this.setActivePost = this.setActivePost.bind(this);
+     this.determinePostFromSlug = this.determinePostFromSlug.bind(this);
      this.setPageChanged = this.setPageChanged.bind(this);
    }
 
@@ -120,6 +119,21 @@ class App extends React.Component {
   }
 
   /**
+   * Sets the active post based on the URL slug for when users navigate directly
+   * to the post page.
+   * @param {string} The post slug.
+   */
+  determinePostFromSlug(slug) {
+    const {posts} = this.state;
+    for (let i = 0; i < posts.length; ++i) {
+      if (posts[i].slug === slug) {
+        this.setState(() => ({activePost: posts[i]}));
+        break;
+      }
+    }
+  }
+
+  /**
    * Sets the state value indicating if a page change has just occured.
    * @param {bool} The boolean value to be set at the pageChanged state.
    */
@@ -142,7 +156,7 @@ class App extends React.Component {
     // console.log(posts);
     // console.log({windowHeight});
     // console.log({scrolledHeight});
-    console.log({pageChanged});
+    // console.log({pageChanged});
 
     return (
       posts.length > 0
@@ -173,12 +187,14 @@ class App extends React.Component {
                       />
                     } />
                     {/* A Post Page */}
-                    <Route path={urls.post} render={() =>
+                    <Route path={`${urls.post}/:postSlug`} render={({match}) =>
                       <PostPage
                         post={activePost}
+                        getPostFromURLFunc={this.determinePostFromSlug}
                         toggleOverlayFunc={this.toggleOverlayOpen}
                         headerHeightFunc={this.setHeaderHeight}
                         headerHeight={headerHeight}
+                        match={match}
                       />
                     } />
                     <Route

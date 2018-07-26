@@ -98,9 +98,9 @@ class ScrollTopWidget extends React.Component {
     const {windowHeight, scrolledHeight} = this.props;
     const {visible} = this.state;
     const heightsSet = (windowHeight > 0) && (scrolledHeight > 0);
-    console.log({windowHeight});
-    console.log({scrolledHeight});
-    console.log({visible});
+    // console.log({windowHeight});
+    // console.log({scrolledHeight});
+    // console.log({visible});
 
     return (
       <ScrollButton
