@@ -14,6 +14,7 @@ import AboutPage from '../AboutPage';
 import PostPage from '../PostPage';
 import ScrollTopWidget from '../ScrollTopWidget';
 import NavOverlay from '../NavOverlay';
+import NotFound from '../NotFound';
 
 /**
  * Wrapper class for the entire application.
@@ -187,7 +188,7 @@ class App extends React.Component {
                       />
                     } />
                     {/* A Post Page */}
-                    <Route path={`${urls.post}/:postSlug`} render={({match}) =>
+                    <Route exact path={`${urls.post}/:postSlug`} render={({match}) =>
                       <PostPage
                         post={activePost}
                         getPostFromURLFunc={this.determinePostFromSlug}
@@ -198,7 +199,9 @@ class App extends React.Component {
                       />
                     } />
                     <Route
-                      render={() => <div>That page does not exist!</div>}
+                      render={() =>
+                        <NotFound theme={theme} />
+                      }
                     />
                   </Switch>
                   <ScrollTopWidget

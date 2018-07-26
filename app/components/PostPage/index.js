@@ -51,7 +51,7 @@ class PostPage extends React.Component {
                 </h3>
                 <div
                   dangerouslySetInnerHTML=
-                    {{ __html: stripDangerousHTML(post.excerpt).innerHTML}}
+                    {{ __html: stripDangerousHTML(post.content).innerHTML}}
                 />
               </Post>
             </ContentWrapper>
