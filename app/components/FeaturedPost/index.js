@@ -61,9 +61,8 @@ class FeaturedPost extends React.Component {
           */}{formatDate(post.date)}
         </h3>
         <ReadOnButton
-          textColor={theme.colors.primary}
           bgColor={theme.colors.tertiary}
-          text={"Read On"}
+          textColor={theme.colors.primary}
           post={post}
           activePostFunc={activePostFunc}
         />

@@ -45,7 +45,6 @@ class PostList extends React.Component {
                       {{ __html: stripDangerousHTML(post.excerpt).innerHTML}}
                   />
                   <ReadOnButton
-                    text={"Read On"}
                     post={post}
                     activePostFunc={activePostFunc}
                   />
