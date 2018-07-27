@@ -4,9 +4,15 @@ import PropTypes from 'prop-types';
 import {PageWrapper, TextWrapper, Code, Text} from './style';
 import urls from '../../nav/urls';
 
-import {LinkButton} from '../ReadOnButton/style';
+import LinkButton from '../LinkButton';
 
+/**
+ * 404 Page.
+ */
 class NotFound extends React.Component {
+  /**
+   * Renders the component.
+   */
   render() {
     const {colors} = this.props.theme;
 
@@ -17,9 +23,8 @@ class NotFound extends React.Component {
           <Text>You're Drunk. Go Home.</Text>
           <LinkButton
             to={urls.home}
-            textcolor={colors.primary}
-            bgcolor={colors.tertiary}
-            onTouchStart={() => null}>
+            bgColor={colors.tertiary}
+            textColor={colors.primary}>
             Home
           </LinkButton>
         </TextWrapper>

@@ -51,10 +51,11 @@ class PostList extends React.Component {
                   />
                 </Post>
 
+                <Divider />
                 {/* Don't render a divider below the last post. */}
-                {index !== lastPost
+                {/* {index !== lastPost
                   ? <Divider />
-                  : null}
+                  : null} */}
               </React.Fragment>
             );
           }

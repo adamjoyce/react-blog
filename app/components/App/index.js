@@ -32,6 +32,7 @@ class App extends React.Component {
        scrolledHeight: 0,
        scrolledIncrement: 20,
        headerHeight: 0,
+       postsPerPage: 10,
        overlayOpen: false,
        pageChanged: false
      }
@@ -151,6 +152,7 @@ class App extends React.Component {
            windowHeight,
            scrolledHeight,
            headerHeight,
+           postsPerPage,
            overlayOpen,
            pageChanged} = this.state;
     // console.log({activePost});
@@ -171,7 +173,7 @@ class App extends React.Component {
                     {/* Landing Page */}
                     <Route exact path={urls.home} render={() =>
                       <LandingPage
-                        posts={posts}
+                        posts={posts.slice(0, postsPerPage)}
                         activePostFunc={this.setActivePost}
                         toggleOverlayFunc={this.toggleOverlayOpen}
                         windowHeight={windowHeight}
@@ -188,22 +190,28 @@ class App extends React.Component {
                       />
                     } />
                     {/* A Post Page */}
-                    <Route exact path={`${urls.post}/:postSlug`} render={({match}) =>
-                      <PostPage
-                        post={activePost}
-                        getPostFromURLFunc={this.determinePostFromSlug}
-                        toggleOverlayFunc={this.toggleOverlayOpen}
-                        headerHeightFunc={this.setHeaderHeight}
-                        headerHeight={headerHeight}
-                        match={match}
-                      />
-                    } />
+                    <Route
+                      exact
+                      path={`${urls.post}/:postSlug`}
+                      render={({match}) =>
+                        <PostPage
+                          post={activePost}
+                          getPostFromURLFunc={this.determinePostFromSlug}
+                          toggleOverlayFunc={this.toggleOverlayOpen}
+                          headerHeightFunc={this.setHeaderHeight}
+                          headerHeight={headerHeight}
+                          match={match}
+                        />
+                      }
+                    />
+                    {/* 404 Page */}
                     <Route
                       render={() =>
                         <NotFound theme={theme} />
                       }
                     />
                   </Switch>
+                  {/* ^ Widget */}
                   <ScrollTopWidget
                     activePost={activePost}
                     windowHeight={windowHeight}
@@ -212,6 +220,7 @@ class App extends React.Component {
                     pageChangedFunc={this.setPageChanged}
                   />
                 </PageWrapper>
+                {/* Small Screen Nav Overlay */}
                 <NavOverlay
                   overlayOpen={overlayOpen}
                   toggleOverlayFunc={this.toggleOverlayOpen}>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {reduceLuminosity} from '../../utils/helpers';
 
-export const LinkButton = styled(Link)`
+export const Button = styled(Link)`
   background: ${props => props.bgcolor};
   border: 1px solid ${props => props.bgcolor};
   box-sizing: border-box;
