@@ -20,7 +20,7 @@ class FeaturedPost extends React.Component {
     * Invoked immediately after the component is loaded.
     */
    componentDidMount() {
-     const {windowHeight} = this.props;
+     const {post, windowHeight} = this.props;
 
      // Set the initial position of featured post to avoid 'jumping' issues
      // in mobile browsers when combining position: fixed + vh + URL bar
@@ -47,17 +47,24 @@ class FeaturedPost extends React.Component {
    * Renders the component.
    */
   render() {
-    const {post, windowHeight, opacity, activePostFunc, theme} = this.props;
-    const author = post.author;
+    const {
+      post,
+      windowHeight,
+      opacity,
+      activePostFunc,
+      theme
+    } = this.props;
+    const title = post.title.rendered;
 
     return (
       <PostWrapper
         style={{opacity: opacity}}
         innerRef={this.postRef}>
-        <h1>{post.title.toUpperCase()}</h1>
+        <h1>{title.toUpperCase()}</h1>
+        {/* Hard-coded author to avoid having to authenticate. */}
         <h3>
-          by {author.first_name} {author.last_name} / {/*
-          */}{Object.keys(post.categories)[0]} / {/*
+          by Adam Joyce / {/*
+          */}{post.categories.name} / {/*
           */}{formatDate(post.date)}
         </h3>
         <ReadOnButton

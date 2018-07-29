@@ -5,8 +5,8 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import urls from '../../nav/urls';
 import {themeMain as theme} from '../../styles/themes';
 import baseStyles from '../../styles/baseStyles';
-import {getPosts} from '../../utils/api';
-import {reduceLuminosity} from '../../utils/helpers';
+import {getPosts, getCategories} from '../../utils/api';
+import {reduceLuminosity, getCategoryName} from '../../utils/helpers';
 
 import PageWrapper from '../PageWrapper';
 import LandingPage from '../LandingPage';
@@ -28,6 +28,7 @@ class App extends React.Component {
      this.state = {
        posts: {},
        activePost: {},
+       categories: {},
        windowHeight: 0,
        scrolledHeight: 0,
        scrolledIncrement: 20,
@@ -51,9 +52,16 @@ class App extends React.Component {
   async componentDidMount() {
     baseStyles(theme);
 
-    // Grab the posts from our wordpress site.
+    // Grab the posts and categories from our wordpress site.
     const posts = await getPosts();
-    this.setState(() => posts);
+    const categories = await getCategories();
+    this.setState(() => ({posts, categories}));
+
+    // Match each post's category and store for use from the posts array.
+    for (let i = 0; i < posts.length; ++i) {
+      const category = getCategoryName(posts[i].categories[0], categories);
+      posts[i].categories['name'] = category;
+    }
 
     this.updateWindowHeight();
 
@@ -117,6 +125,7 @@ class App extends React.Component {
    * @param {object} The new post to be set as active.
    */
   setActivePost(activePost) {
+    console.log('ACTIVE');
     this.setState(() => ({activePost}));
   }
 
@@ -149,6 +158,7 @@ class App extends React.Component {
   render() {
     const {posts,
            activePost,
+           categories,
            windowHeight,
            scrolledHeight,
            headerHeight,
@@ -156,7 +166,8 @@ class App extends React.Component {
            overlayOpen,
            pageChanged} = this.state;
     // console.log({activePost});
-    // console.log(posts);
+    // console.log({posts});
+    // console.log({categories});
     // console.log({windowHeight});
     // console.log({scrolledHeight});
     // console.log({pageChanged});
@@ -173,8 +184,10 @@ class App extends React.Component {
                     {/* Landing Page */}
                     <Route exact path={urls.home} render={() =>
                       <LandingPage
-                        posts={posts.slice(0, postsPerPage)}
+                        posts={posts}
+                        postsPerPage={postsPerPage}
                         activePostFunc={this.setActivePost}
+                        categories={categories}
                         toggleOverlayFunc={this.toggleOverlayOpen}
                         windowHeight={windowHeight}
                         scrolledHeight={scrolledHeight}

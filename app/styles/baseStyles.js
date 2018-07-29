@@ -14,6 +14,11 @@ const baseStyles = (theme) => injectGlobal`
   #app {
     height: 100%;
   }
+
+${'' /* Hides the wordpress generated 'more' links - feels super hacky */}
+  a.more-link {
+    display: none;
+  }
 `;
 
 export default baseStyles;

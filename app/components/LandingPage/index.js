@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import LandingHeader from '../LandingHeader';
 import PostList from '../PostList';
+import LinkButton from '../LinkButton';
 
 /**
  * The landing page component.
@@ -10,6 +11,7 @@ import PostList from '../PostList';
  */
 const LandingPage = (props) => {
   const {posts,
+         postsPerPage,
          activePostFunc,
          toggleOverlayFunc,
          windowHeight,
@@ -26,13 +28,18 @@ const LandingPage = (props) => {
         scrolledHeight={scrolledHeight}
         theme={theme}>
       </LandingHeader>
-      <PostList posts={posts} activePostFunc={activePostFunc} />
+      <PostList
+        posts={posts}
+        postsPerPage={postsPerPage}
+        activePostFunc={activePostFunc}
+      />
     </React.Fragment>
   );
 };
 
 LandingPage.propTypes = {
   posts: PropTypes.array.isRequired,
+  postsPerPage: PropTypes.number.isRequired,
   activePostFunc: PropTypes.func.isRequired,
   toggleOverlayFunc: PropTypes.func.isRequired,
   windowHeight: PropTypes.number.isRequired,

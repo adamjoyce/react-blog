@@ -18,6 +18,7 @@ const months = {
 
 /**
  * Converts an ISO formatted date to 'Day Month Year' format e.g. '1 Jan 2000'.
+ *
  * @param {string} ISO formatted date.
  * @returns {string} Formatted date e.g. '01 Jan 2000'.
  */
@@ -34,6 +35,7 @@ export function formatDate(date) {
 
 /**
  * Reduces the luminosity of a given color.
+ *
  * @param {string} The color to reduce as a hex value.
  * @return {string} The reduced luminosity color in hsl format.
  */
@@ -51,6 +53,7 @@ export function reduceLuminosity(hexColor, luminosityMultipler) {
 
 /**
  * Converts a hex color into an rgba color.
+ *
  * @param {string} The color as a hex value.
  * @param {number} The new rgb color's alpha value.
  * @return {string} The final rgba color formatted for css use.
@@ -70,6 +73,7 @@ export function reduceLuminosity(hexColor, luminosityMultipler) {
 
 /**
  * Strips out all script tags from some given text.
+ *
  * @param {string} Text from which HTML should be stripped.
  * @return {string} The stripped text wrapped in a div.
  */
@@ -85,4 +89,41 @@ export function stripDangerousHTML(text) {
   }
 
   return div;
+}
+
+/**
+ * Returns an array of the given array split into smaller 'chunk' arrays.
+ *
+ * @param {array} The original array to be chunked.
+ * @param {number} The size of each array chunk.
+ * @return {array} The resultant chunked array.
+ */
+export function chunkArray(array, chunkSize) {
+  const arrayLength = array.length;
+  let chunkedArray = [];
+
+  for (let i = 0; i < arrayLength; i += chunkSize) {
+    const chunk = array.slice(i, i + chunkSize);
+    chunkedArray.push(chunk);
+  }
+
+  return chunkedArray;
+}
+
+/**
+ * Matches the given category id with its associated name.
+ *
+ * @param {number} The category id whose name is wanted.
+ * @param {array} The array of possible categories.
+ * @return {string} The matched category name.
+ */
+export function getCategoryName(categoryId, categories) {
+  let categoryName = '';
+  for (let i = 0; i < categories.length; ++i) {
+    if (categories[i].id === categoryId) {
+      categoryName = categories[i].name;
+      break;
+    }
+  }
+  return categoryName;
 }

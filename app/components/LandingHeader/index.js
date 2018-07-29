@@ -16,12 +16,14 @@ class LandingHeader extends React.Component {
    * Renders the component.
    */
   render() {
-    const {featuredPost,
-           toggleOverlayFunc,
-           activePostFunc,
-           windowHeight,
-           scrolledHeight,
-           theme} = this.props;
+    const {
+      featuredPost,
+      toggleOverlayFunc,
+      activePostFunc,
+      windowHeight,
+      scrolledHeight,
+      theme
+    } = this.props;
     const heightsSet = (windowHeight > 0) && (scrolledHeight > 0);
 
     // Calculate the opacity of the featured post and navigation menu for the

@@ -28,10 +28,6 @@ class PostPage extends React.Component {
       headerHeight,
       match
     } = this.props;
-    const author = post.author;
-    console.log({post});
-    console.log({headerHeight});
-    console.log({match});
 
     return (
       <React.Fragment>
@@ -43,15 +39,18 @@ class PostPage extends React.Component {
           ? <ContentWrapper
               style={{top: headerHeight}}>
               <Post>
-                <h2>{post.title.toUpperCase()}</h2>
+                <h2>{post.title.rendered.toUpperCase()}</h2>
+                {/* Hard-coded author to avoid having to authenticate. */}
                 <h3>
-                  by {author.first_name} {author.last_name} / {/*
-                  */}{Object.keys(post.categories)[0]} / {/*
+                  by Adam Joyce / {/*
+                  */}{post.categories.name} / {/*
                   */}{formatDate(post.date)}
                 </h3>
                 <div
                   dangerouslySetInnerHTML=
-                    {{ __html: stripDangerousHTML(post.content).innerHTML}}
+                    {{ __html: stripDangerousHTML(
+                      post.content.rendered).innerHTML
+                    }}
                 />
               </Post>
             </ContentWrapper>
