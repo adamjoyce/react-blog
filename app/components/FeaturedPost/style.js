@@ -15,4 +15,8 @@ export const PostWrapper = styled.div`
     line-height: 1.5em;
     margin: 2rem 0;
   }
+
+  a {
+    font-size: 0.5em;
+  }
 `;

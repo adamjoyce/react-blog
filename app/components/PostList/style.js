@@ -17,3 +17,13 @@ export const ListTitle = styled.h1`
   margin: 4rem auto;
   width: 100%;
 `;
+
+export const LoadWrapper = styled.div`
+  margin: 4rem 0;
+  text-align: center;
+
+  button {
+    font-family: ${props => props.theme.fonts.secondary};
+    font-size: 0.8em;
+  }
+`;

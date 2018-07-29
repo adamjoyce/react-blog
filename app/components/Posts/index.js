@@ -6,8 +6,11 @@ import {formatDate, stripDangerousHTML} from '../../utils/helpers';
 
 import ReadOnButton from '../ReadOnButton';
 
+/**
+ * A collection of posts.
+ */
 const Posts = (props) => {
-  const {posts, activePostFunc} = props;
+  const {posts, activePostFunc, remainingChunks} = props;
 
   return (
     posts.map((post, index) => {
@@ -35,7 +38,7 @@ const Posts = (props) => {
               activePostFunc={activePostFunc}
             />
           </Post>
-          <Divider />
+          {remainingChunks != 0 ? <Divider /> : null}
         </React.Fragment>
       );
     }));
@@ -43,7 +46,8 @@ const Posts = (props) => {
 
 Posts.propTypes = {
   posts: PropTypes.array.isRequired,
-  activePostFunc: PropTypes.func.isRequired
+  activePostFunc: PropTypes.func.isRequired,
+  remainingChunks: PropTypes.number.isRequired
 }
 
 export default Posts;

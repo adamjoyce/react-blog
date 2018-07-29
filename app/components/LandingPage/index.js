@@ -29,7 +29,7 @@ const LandingPage = (props) => {
         theme={theme}>
       </LandingHeader>
       <PostList
-        posts={posts}
+        posts={posts.slice(1)}
         postsPerPage={postsPerPage}
         activePostFunc={activePostFunc}
       />
