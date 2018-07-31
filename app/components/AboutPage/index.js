@@ -20,7 +20,11 @@ import Header from '../Header';
          {headerHeight > 0
            ? <ContentWrapper
                style={{top: headerHeight}}>
-               This is the About page!
+               <p>Welcome to A Torpid Pumpkin!</p>
+               <p>This is the first paragraph explaining all about the point of
+               this blog and all the great things that will come from it!</p>
+               <p>This is the second paragraph further amazing you with all the
+               awesomeness of moi, me, and i.</p>
              </ContentWrapper>
            : null}
        </React.Fragment>

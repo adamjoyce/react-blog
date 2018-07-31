@@ -17,6 +17,11 @@ export const button = css`
   }
 `;
 
+// Page padding mixin for uniform changes.
+export const pagePadding = css`
+  padding: 0 2rem;
+`;
+
 const baseStyles = (theme) => injectGlobal`
   html {
     height: 100%;
